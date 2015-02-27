@@ -24,4 +24,6 @@ s.author   = { 'Antonin Biret' => 'haprock@gmail.com' }
 
 s.social_media_url   = "https://twitter.com/Antonin_brt"
 
+s.homepage   = "https://github.com/antoninbiret/ABSteppedProgressBar"
+
 end

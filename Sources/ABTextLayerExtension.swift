@@ -27,6 +27,7 @@ extension CATextLayer {
         width = CGFloat(CTLineGetTypographicBounds( line, &ascent, &descent, nil))
 
         width = ceil(width)
+        
         self.bounds = CGRectMake(0, 0, width, ceil(ascent+descent))
     }
 }
