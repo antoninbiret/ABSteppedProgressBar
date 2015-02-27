@@ -14,7 +14,7 @@ s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
 s.source_files = 'Sources/*.swift'
 
-s.source       = { :git => "https://github.com/antoninbiret/ABSteppedProgressBar", :tag => "0.0.1" }
+s.source       = { :git => "https://github.com/antoninbiret/ABSteppedProgressBar.git", :tag => "0.0.1" }
 
 s.requires_arc = true
 
