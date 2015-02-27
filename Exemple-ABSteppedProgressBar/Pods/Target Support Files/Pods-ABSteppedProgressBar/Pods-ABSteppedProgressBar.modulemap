@@ -1,0 +1,6 @@
+framework module ABSteppedProgressBar {
+  umbrella header "Pods-ABSteppedProgressBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

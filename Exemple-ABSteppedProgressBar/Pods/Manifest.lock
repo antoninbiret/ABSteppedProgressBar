@@ -1,0 +1,14 @@
+PODS:
+  - ABSteppedProgressBar (0.0.1)
+
+DEPENDENCIES:
+  - ABSteppedProgressBar (from `../`)
+
+EXTERNAL SOURCES:
+  ABSteppedProgressBar:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ABSteppedProgressBar: 42f162abb1bb10cccdd57a1746e251311be56d91
+
+COCOAPODS: 0.36.0.rc.1
