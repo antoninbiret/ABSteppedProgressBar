@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  ABSteppedProgressBar: 42f162abb1bb10cccdd57a1746e251311be56d91
+  ABSteppedProgressBar: ddf904fa67019905372269dcdf9db3a93597ae4d
 
 COCOAPODS: 0.36.0.rc.1

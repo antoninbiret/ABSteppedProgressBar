@@ -11,7 +11,7 @@
   },
   "source_files": "Sources/*.swift",
   "source": {
-    "git": "https://github.com/antoninbiret/ABSteppedProgressBar",
+    "git": "https://github.com/antoninbiret/ABSteppedProgressBar.git",
     "tag": "0.0.1"
   },
   "requires_arc": true,
@@ -19,5 +19,6 @@
   "authors": {
     "Antonin Biret": "haprock@gmail.com"
   },
-  "social_media_url": "https://twitter.com/Antonin_brt"
+  "social_media_url": "https://twitter.com/Antonin_brt",
+  "homepage": "https://github.com/antoninbiret/ABSteppedProgressBar"
 }

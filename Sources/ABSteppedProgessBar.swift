@@ -35,10 +35,12 @@ import CoreGraphics
     }
     
     public var currentIndex: Int = 0 {
-        didSet {
+        willSet(newValue){
             if let delegate = self.delegate {
-                delegate.progressBar?(self, willSelectItemAtIndex: self.currentIndex)
+                delegate.progressBar?(self, willSelectItemAtIndex: newValue)
             }
+        }
+        didSet {
             animationRendering = true
             self.setNeedsDisplay()
         }
@@ -159,20 +161,22 @@ import CoreGraphics
         var swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "gestureAction:")
         self.addGestureRecognizer(tapGestureRecognizer)
         self.addGestureRecognizer(swipeGestureRecognizer)
-
+        
         
         self.backgroundColor = UIColor.clearColor()
         
         self.layer.addSublayer(backgroundLayer)
         self.layer.addSublayer(progressLayer)
-
-//        self.layer.addSublayer(maskLayer)
         progressLayer.mask = maskLayer
-    }
-
-
-    override public func drawRect(rect: CGRect) {
         
+        self.contentMode = UIViewContentMode.Redraw
+//        self.clearsContextBeforeDrawing = false
+    }
+    
+    
+    override public func drawRect(rect: CGRect) {        
+        super.drawRect(rect)
+//        println("Width : \(self.bounds.width)")
         let distanceBetweenCircles = (self.bounds.width - (CGFloat(numberOfPoints) * 2 * radius)) / CGFloat(numberOfPoints - 1)
         
         var xCursor: CGFloat = radius
@@ -185,12 +189,12 @@ import CoreGraphics
         var progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
         
         if(!animationRendering) {
-
+            
             if let bgPath = shapePath(centerPoints, aRadius: radius, aLineHeight: _lineHeight) {
                 backgroundLayer.path = bgPath.CGPath
                 backgroundLayer.fillColor = backgroundShapeColor.CGColor
             }
-        
+            
             if let progressPath = shapePath(centerPoints, aRadius: _progressRadius, aLineHeight: _progressLineHeight) {
                 progressLayer.path = progressPath.CGPath
                 progressLayer.fillColor = selectedBackgoundColor.CGColor
@@ -203,7 +207,7 @@ import CoreGraphics
                     
                     var textLayerFont = UIFont.boldSystemFontOfSize(_progressRadius)
                     textLayer.contentsScale = UIScreen.mainScreen().scale
-    
+                    
                     if let nFont = self.numbersFont {
                         textLayerFont = nFont
                     }
@@ -221,7 +225,7 @@ import CoreGraphics
                     }
                     
                     textLayer.sizeWidthToFit()
-
+                    
                     textLayer.frame = CGRectMake(centerPoint.x - textLayer.bounds.width/2, centerPoint.y - textLayer.bounds.height/2, textLayer.bounds.width, textLayer.bounds.height)
                     
                     self.layer.addSublayer(textLayer)
@@ -230,12 +234,12 @@ import CoreGraphics
         }
         
         if let currentProgressCenterPoint = progressCenterPoints.last {
-    
+            
             var previousProgressCenterPoint = centerPoints[previousIndex]
-    
+            
             var maskPath = self.maskPath(currentProgressCenterPoint)
             maskLayer.path = maskPath.CGPath
-    
+            
             CATransaction.begin()
             var progressAnimation = CABasicAnimation(keyPath: "path")
             progressAnimation.duration = stepAnimationDuration * CFTimeInterval(abs(currentIndex - previousIndex))
@@ -258,7 +262,6 @@ import CoreGraphics
         }
         previousIndex = currentIndex
     }
-
     
     
     func shapePath(centerPoints: Array<CGPoint>, aRadius: CGFloat, aLineHeight: CGFloat) -> UIBezierPath? {
@@ -273,12 +276,12 @@ import CoreGraphics
             let second = centerPoints[1]
             distanceBetweenCircles = second.x - first.x - 2 * aRadius
         }
-
+        
         let angle = aLineHeight / 2.0 / aRadius;
         
         var xCursor: CGFloat = 0
         
-
+        
         for i in 0...(2 * nbPoint - 1) {
             
             var index = i
@@ -294,10 +297,10 @@ import CoreGraphics
             if(i == 0) {
                 
                 xCursor = centerPoint.x
-                    
+                
                 startAngle = CGFloat(M_PI)
                 endAngle = -angle
-
+                
             } else if(i < nbPoint - 1) {
                 
                 startAngle = CGFloat(M_PI) + angle
@@ -324,7 +327,7 @@ import CoreGraphics
                 endAngle = CGFloat(M_PI)
                 
             }
-
+            
             path.addArcWithCenter(CGPointMake(centerPoint.x, centerPoint.y), radius: aRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             
             
@@ -356,7 +359,7 @@ import CoreGraphics
         maskPath.moveToPoint(CGPointMake(0.0, 0.0))
         
         maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, 0.0))
-
+        
         maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, currentProgressCenterPoint.y - _progressLineHeight))
         
         maskPath.addArcWithCenter(currentProgressCenterPoint, radius: _progressRadius, startAngle: -angle, endAngle: angle, clockwise: true)
@@ -365,38 +368,38 @@ import CoreGraphics
         
         maskPath.addLineToPoint(CGPointMake(0.0, self.bounds.height))
         maskPath.closePath()
-
+        
         return maskPath
     }
     
     
     func gestureAction(gestureRecognizer:UIGestureRecognizer) {
         if(gestureRecognizer.state == UIGestureRecognizerState.Ended ||
-           gestureRecognizer.state == UIGestureRecognizerState.Changed ) {
-            
-            let touchPoint = gestureRecognizer.locationInView(self)
-            
-            var smallestDistance = CGFloat(Float.infinity)
-        
-            var selectedIndex = 0
-        
-            for (index, point) in enumerate(centerPoints) {
-                var distance = touchPoint.distanceWith(point)
-                if(distance < smallestDistance) {
-                    smallestDistance = distance
-                    selectedIndex = index
+            gestureRecognizer.state == UIGestureRecognizerState.Changed ) {
+                
+                let touchPoint = gestureRecognizer.locationInView(self)
+                
+                var smallestDistance = CGFloat(Float.infinity)
+                
+                var selectedIndex = 0
+                
+                for (index, point) in enumerate(centerPoints) {
+                    var distance = touchPoint.distanceWith(point)
+                    if(distance < smallestDistance) {
+                        smallestDistance = distance
+                        selectedIndex = index
+                    }
                 }
-            }
-            if(currentIndex != selectedIndex) {
-                if let canSelect = self.delegate?.progressBar?(self, canSelectItemAtIndex: selectedIndex) {
-                    if (canSelect) {
+                if(currentIndex != selectedIndex) {
+                    if let canSelect = self.delegate?.progressBar?(self, canSelectItemAtIndex: selectedIndex) {
+                        if (canSelect) {
+                            currentIndex = selectedIndex
+                        }
+                    } else {
                         currentIndex = selectedIndex
                     }
-                } else {
-                    currentIndex = selectedIndex
                 }
-            }
         }
     }
-
+    
 }

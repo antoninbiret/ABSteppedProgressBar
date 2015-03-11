@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2A1E9FD2036F025829692C73"
+               BlueprintIdentifier = "2D7185CFDFD569DBDF1D9303"
                BuildableName = "ABSteppedProgressBar.framework"
                BlueprintName = "Pods-ABSteppedProgressBar"
                ReferencedContainer = "container:Pods.xcodeproj">
