@@ -151,9 +151,8 @@ import CoreGraphics
         commonInit()
     }
     
-    override init() {
-        super.init()
-        commonInit()
+    convenience init() {
+        self.init(frame:CGRectZero)
     }
     
     func commonInit() {
