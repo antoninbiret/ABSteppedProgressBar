@@ -146,7 +146,7 @@ import CoreGraphics
         commonInit()
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -156,8 +156,8 @@ import CoreGraphics
     }
     
     func commonInit() {
-        var tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gestureAction:")
-        var swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "gestureAction:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gestureAction:")
+        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "gestureAction:")
         self.addGestureRecognizer(tapGestureRecognizer)
         self.addGestureRecognizer(swipeGestureRecognizer)
         
@@ -169,23 +169,22 @@ import CoreGraphics
         progressLayer.mask = maskLayer
         
         self.contentMode = UIViewContentMode.Redraw
-//        self.clearsContextBeforeDrawing = false
     }
     
     
     override public func drawRect(rect: CGRect) {        
         super.drawRect(rect)
-//        println("Width : \(self.bounds.width)")
+
         let distanceBetweenCircles = (self.bounds.width - (CGFloat(numberOfPoints) * 2 * radius)) / CGFloat(numberOfPoints - 1)
         
         var xCursor: CGFloat = radius
         
-        for i in 0...(numberOfPoints - 1) {
+        for _ in 0...(numberOfPoints - 1) {
             centerPoints.append(CGPointMake(xCursor, radius))
             xCursor += 2 * radius + distanceBetweenCircles
         }
         
-        var progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
+        let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
         
         if(!animationRendering) {
             
@@ -202,7 +201,7 @@ import CoreGraphics
             if(displayNumbers) {
                 for i in 0...(numberOfPoints - 1) {
                     let centerPoint = centerPoints[i]
-                    var textLayer = CATextLayer()
+                    let textLayer = CATextLayer()
                     
                     var textLayerFont = UIFont.boldSystemFontOfSize(_progressRadius)
                     textLayer.contentsScale = UIScreen.mainScreen().scale
@@ -234,13 +233,11 @@ import CoreGraphics
         
         if let currentProgressCenterPoint = progressCenterPoints.last {
             
-            var previousProgressCenterPoint = centerPoints[previousIndex]
-            
-            var maskPath = self.maskPath(currentProgressCenterPoint)
+            let maskPath = self.maskPath(currentProgressCenterPoint)
             maskLayer.path = maskPath.CGPath
             
             CATransaction.begin()
-            var progressAnimation = CABasicAnimation(keyPath: "path")
+            let progressAnimation = CABasicAnimation(keyPath: "path")
             progressAnimation.duration = stepAnimationDuration * CFTimeInterval(abs(currentIndex - previousIndex))
             progressAnimation.toValue = maskPath
             progressAnimation.removedOnCompletion = false
@@ -267,7 +264,7 @@ import CoreGraphics
         
         let nbPoint = centerPoints.count
         
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         
         var distanceBetweenCircles: CGFloat = 0
         
@@ -344,7 +341,7 @@ import CoreGraphics
     }
     
     func progressMaskPath(currentProgressCenterPoint: CGPoint) -> UIBezierPath {
-        var maskPath = UIBezierPath(rect: CGRectMake(0.0, 0.0, currentProgressCenterPoint.x + _progressRadius, self.bounds.height))
+        let maskPath = UIBezierPath(rect: CGRectMake(0.0, 0.0, currentProgressCenterPoint.x + _progressRadius, self.bounds.height))
         return maskPath
     }
     
@@ -353,7 +350,7 @@ import CoreGraphics
         let angle = _progressLineHeight / 2.0 / _progressRadius;
         let xOffset = cos(angle) * _progressRadius
         
-        var maskPath = UIBezierPath()
+        let maskPath = UIBezierPath()
         
         maskPath.moveToPoint(CGPointMake(0.0, 0.0))
         
@@ -382,8 +379,8 @@ import CoreGraphics
                 
                 var selectedIndex = 0
                 
-                for (index, point) in enumerate(centerPoints) {
-                    var distance = touchPoint.distanceWith(point)
+                for (index, point) in centerPoints.enumerate() {
+                    let distance = touchPoint.distanceWith(point)
                     if(distance < smallestDistance) {
                         smallestDistance = distance
                         selectedIndex = index

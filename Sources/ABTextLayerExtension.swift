@@ -12,17 +12,17 @@ import UIKit
 extension CATextLayer {
     
     func sizeWidthToFit() {
-        let fontName = CTFontCopyPostScriptName(self.font as! CTFont) as! String
+        let fontName = CTFontCopyPostScriptName(self.font as! CTFont) as String
         
         let font = UIFont(name: fontName, size: self.fontSize)
         
         let attributes = NSDictionary(object: font!, forKey: NSFontAttributeName)
         
-        let attString = NSAttributedString(string: self.string as! String, attributes: attributes as? [NSObject : AnyObject])
+        let attString = NSAttributedString(string: self.string as! String, attributes: attributes as? [String : AnyObject])
         
         var ascent: CGFloat = 0, descent: CGFloat = 0, width: CGFloat = 0
         
-        var line = CTLineCreateWithAttributedString(attString)
+        let line = CTLineCreateWithAttributedString(attString)
         
         width = CGFloat(CTLineGetTypographicBounds( line, &ascent, &descent, nil))
 
