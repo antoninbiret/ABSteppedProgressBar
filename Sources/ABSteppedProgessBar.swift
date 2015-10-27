@@ -63,6 +63,21 @@ import CoreGraphics
         }
     }
     
+    @IBInspectable public var radius: CGFloat = 0.0 {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+    
+    private var _radius: CGFloat {
+        get{
+            if(radius == 0.0 || radius > self.bounds.height / 2.0) {
+                return self.bounds.height / 2.0
+            }
+            return radius
+        }
+    }
+    
     @IBInspectable public var progressRadius: CGFloat = 0.0 {
         didSet {
             maskLayer.cornerRadius = progressRadius
@@ -128,12 +143,6 @@ import CoreGraphics
     
     public var delegate: ABSteppedProgressBarDelegate?
     
-    private var radius: CGFloat {
-        get{
-            return self.bounds.height/2.0
-        }
-    }
-    
     private var backgroundLayer: CAShapeLayer = CAShapeLayer()
     private var progressLayer: CAShapeLayer = CAShapeLayer()
     private var maskLayer: CAShapeLayer = CAShapeLayer()
@@ -174,21 +183,23 @@ import CoreGraphics
     
     override public func drawRect(rect: CGRect) {        
         super.drawRect(rect)
-
-        let distanceBetweenCircles = (self.bounds.width - (CGFloat(numberOfPoints) * 2 * radius)) / CGFloat(numberOfPoints - 1)
         
-        var xCursor: CGFloat = radius
+        let largerRadius = fmax(_radius, _progressRadius)
+
+        let distanceBetweenCircles = (self.bounds.width - (CGFloat(numberOfPoints) * 2 * largerRadius)) / CGFloat(numberOfPoints - 1)
+        
+        var xCursor: CGFloat = largerRadius
         
         for _ in 0...(numberOfPoints - 1) {
-            centerPoints.append(CGPointMake(xCursor, radius))
-            xCursor += 2 * radius + distanceBetweenCircles
+            centerPoints.append(CGPointMake(xCursor, bounds.height / 2))
+            xCursor += 2 * largerRadius + distanceBetweenCircles
         }
         
         let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
         
         if(!animationRendering) {
             
-            if let bgPath = shapePath(centerPoints, aRadius: radius, aLineHeight: _lineHeight) {
+            if let bgPath = shapePath(centerPoints, aRadius: _radius, aLineHeight: _lineHeight) {
                 backgroundLayer.path = bgPath.CGPath
                 backgroundLayer.fillColor = backgroundShapeColor.CGColor
             }
