@@ -1,1 +1,0 @@
-PODS_ABSTEPPEDPROGRESSBAR_OTHER_LDFLAGS = -framework "Foundation"

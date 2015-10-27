@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-ABSteppedProgressBar.xcscheme</key>
+		<key>ABSteppedProgressBar.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1FFF908315149D8D75CD3214</key>
+		<key>545ACB920FF64C043AD39D2756679314</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D7185CFDFD569DBDF1D9303</key>
+		<key>A1C1F833002BA353DFA14C3E9F6A7DAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
