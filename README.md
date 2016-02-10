@@ -17,10 +17,10 @@ ABSteppedProgressBar requires at least iOS 8 or above.
 
 ## Installation
 
-### Cocoapods
+### CocoaPods
 
 ### [CocoaPods](http://cocoapods.org/)
-At this time, Cocoapods support for Swift frameworks is supported in a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/).
+At this time, CocoaPods support for Swift frameworks is supported in a [pre-release](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/).
 
 To use ABSteppedProgressBar in your project add the following 'Podfile' to your project
 
