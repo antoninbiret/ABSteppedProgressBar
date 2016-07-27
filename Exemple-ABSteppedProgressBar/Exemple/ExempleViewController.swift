@@ -33,5 +33,32 @@ class ExempleViewController: UIViewController {
     progressBar.progressRadius = 15
     progressBar.progressLineHeight = 10
     
+    progressBar.delegate = self
   }
+}
+
+extension ExempleViewController: ABSteppedProgressBarDelegate {
+  
+  func progressBar(progressBar: ABSteppedProgressBar,
+                   willSelectItemAtIndex index: Int) {
+    print("progressBar:willSelectItemAtIndex:\(index)")
+  }
+  
+  func progressBar(progressBar: ABSteppedProgressBar,
+                   didSelectItemAtIndex index: Int) {
+    print("progressBar:didSelectItemAtIndex:\(index)")
+  }
+  
+  func progressBar(progressBar: ABSteppedProgressBar,
+                   canSelectItemAtIndex index: Int) -> Bool {
+    print("progressBar:canSelectItemAtIndex:\(index)")
+    return true
+  }
+  
+  func progressBar(progressBar: ABSteppedProgressBar,
+                   textAtIndex index: Int) -> String {
+    print("progressBar:textAtIndex:\(index)")
+    return "\(index)"
+  }
+  
 }

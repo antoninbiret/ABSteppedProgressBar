@@ -141,7 +141,7 @@ import CoreGraphics
     }
   }
   
-  public var delegate: ABSteppedProgressBarDelegate?
+  public weak var delegate: ABSteppedProgressBarDelegate?
   
   private var backgroundLayer: CAShapeLayer = CAShapeLayer()
   private var progressLayer: CAShapeLayer = CAShapeLayer()
