@@ -165,8 +165,8 @@ import CoreGraphics
   }
   
   func commonInit() {
-    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "gestureAction:")
-    let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: "gestureAction:")
+    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ABSteppedProgressBar.gestureAction(_:)))
+    let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ABSteppedProgressBar.gestureAction(_:)))
     self.addGestureRecognizer(tapGestureRecognizer)
     self.addGestureRecognizer(swipeGestureRecognizer)
     
