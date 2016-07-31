@@ -34,6 +34,9 @@ class ExempleViewController: UIViewController {
     progressBar.progressLineHeight = 10
     
     progressBar.delegate = self
+    
+    progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+    progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
   }
 }
 

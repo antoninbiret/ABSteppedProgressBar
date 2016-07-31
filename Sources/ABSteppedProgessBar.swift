@@ -28,12 +28,16 @@ import CoreGraphics
 
 @IBDesignable public class ABSteppedProgressBar: UIView {
   
+  //MARK: - Public properties
+  
+  /// The number of displayed points in the component
   @IBInspectable public var numberOfPoints: Int = 3 {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
+  /// The current selected index
   public var currentIndex: Int = 0 {
     willSet(newValue){
       if let delegate = self.delegate {
@@ -46,8 +50,7 @@ import CoreGraphics
     }
   }
   
-  private var previousIndex: Int = 0
-  
+  /// The line height between points
   @IBInspectable public var lineHeight: CGFloat = 0.0 {
     didSet {
       self.setNeedsDisplay()
@@ -63,6 +66,7 @@ import CoreGraphics
     }
   }
   
+  /// The point's radius
   @IBInspectable public var radius: CGFloat = 0.0 {
     didSet {
       self.setNeedsDisplay()
@@ -78,6 +82,7 @@ import CoreGraphics
     }
   }
   
+  /// The progress points's raduis
   @IBInspectable public var progressRadius: CGFloat = 0.0 {
     didSet {
       maskLayer.cornerRadius = progressRadius
@@ -94,6 +99,7 @@ import CoreGraphics
     }
   }
   
+  /// The progress line height between points
   @IBInspectable public var progressLineHeight: CGFloat = 0.0 {
     didSet {
       self.setNeedsDisplay()
@@ -109,55 +115,98 @@ import CoreGraphics
     }
   }
   
+  /// The selection animation duration
   @IBInspectable public var stepAnimationDuration: CFTimeInterval = 0.4
   
-  @IBInspectable public var displayNumbers: Bool = true {
+  /// True if some text should be rendered in the step points. The text value is provided by the delegate
+  @IBInspectable public var displayStepText: Bool = true {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
-  public var numbersFont: UIFont? {
+  /// The text font in the step points
+  public var stepTextFont: UIFont? {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
-  public var numbersColor: UIColor? {
+  /// The text color in the step points
+  public var stepTextColor: UIColor? {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
+  
+  /// The component's background color
   @IBInspectable public var backgroundShapeColor: UIColor = UIColor(red: 166.0/255.0, green: 160.0/255.0, blue: 151.0/255.0, alpha: 0.8) {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
+  /// The component selected background color
   @IBInspectable public var selectedBackgoundColor: UIColor = UIColor(red: 150.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0) {
     didSet {
       self.setNeedsDisplay()
     }
   }
   
+  /// The component's delegate
   public weak var delegate: ABSteppedProgressBarDelegate?
   
-  private var backgroundLayer: CAShapeLayer = CAShapeLayer()
-  private var progressLayer: CAShapeLayer = CAShapeLayer()
-  private var maskLayer: CAShapeLayer = CAShapeLayer()
-  private var centerPoints = Array<CGPoint>()
+  //MARK: - Deprecated properties
+  
+  @available(*, deprecated=0.0.5, message="Use `displayTextIndexes` instead")
+  @IBInspectable public var displayNumbers: Bool = true {
+    didSet {
+      self.displayStepText = self.displayNumbers
+    }
+  }
+  
+  @available(*, deprecated=0.0.5, message="Use `stepTextFont` instead")
+  public var numbersFont: UIFont? {
+    didSet {
+      self.stepTextFont = self.numbersFont
+    }
+  }
+  
+  @available(*, deprecated=0.0.5, message="Use `stepTextColor` instead")
+  public var numbersColor: UIColor? {
+    didSet {
+      self.stepTextColor = self.numbersColor
+    }
+  }
+  
+  //MARK: - Private properties
+  
+  private var backgroundLayer = CAShapeLayer()
+  
+  private var progressLayer = CAShapeLayer()
+  
+  private var maskLayer = CAShapeLayer()
+  
+  private var centerPoints = [CGPoint]()
+  
+  private var _textLayers = [Int:CATextLayer]()
+  
+  private var previousIndex: Int = 0
   
   private var animationRendering = false
   
+  //MARK: - Life cycle
+  
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    commonInit()
+    self.commonInit()
+    self.backgroundColor = UIColor.clearColor()
   }
   
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    commonInit()
+    self.commonInit()
   }
   
   convenience init() {
@@ -170,19 +219,17 @@ import CoreGraphics
     self.addGestureRecognizer(tapGestureRecognizer)
     self.addGestureRecognizer(swipeGestureRecognizer)
     
-    
-    self.backgroundColor = UIColor.clearColor()
-    
-    self.layer.addSublayer(backgroundLayer)
-    self.layer.addSublayer(progressLayer)
-    progressLayer.mask = maskLayer
+    self.layer.addSublayer(self.backgroundLayer)
+    self.layer.addSublayer(self.progressLayer)
+    self.progressLayer.mask = self.maskLayer
     
     self.contentMode = UIViewContentMode.Redraw
   }
   
-  
   override public func drawRect(rect: CGRect) {        
     super.drawRect(rect)
+    
+    self.centerPoints.removeAll()
     
     let largerRadius = fmax(_radius, _progressRadius)
     
@@ -195,56 +242,26 @@ import CoreGraphics
       xCursor += 2 * largerRadius + distanceBetweenCircles
     }
     
-    let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
-    
     if(!animationRendering) {
       
-      if let bgPath = shapePath(centerPoints, aRadius: _radius, aLineHeight: _lineHeight) {
-        backgroundLayer.path = bgPath.CGPath
-        backgroundLayer.fillColor = backgroundShapeColor.CGColor
-      }
+      let bgPath = self._shapePath(self.centerPoints, aRadius: _radius, aLineHeight: _lineHeight)
+      backgroundLayer.path = bgPath.CGPath
+      backgroundLayer.fillColor = backgroundShapeColor.CGColor
       
-      if let progressPath = shapePath(centerPoints, aRadius: _progressRadius, aLineHeight: _progressLineHeight) {
-        progressLayer.path = progressPath.CGPath
-        progressLayer.fillColor = selectedBackgoundColor.CGColor
-      }
+      let progressPath = self._shapePath(self.centerPoints, aRadius: _progressRadius, aLineHeight: _progressLineHeight)
+      progressLayer.path = progressPath.CGPath
+      progressLayer.fillColor = selectedBackgoundColor.CGColor
       
-      if(displayNumbers) {
-        for i in 0...(numberOfPoints - 1) {
-          let centerPoint = centerPoints[i]
-          let textLayer = CATextLayer()
-          
-          var textLayerFont = UIFont.boldSystemFontOfSize(_progressRadius)
-          textLayer.contentsScale = UIScreen.mainScreen().scale
-          
-          if let nFont = self.numbersFont {
-            textLayerFont = nFont
-          }
-          textLayer.font = CTFontCreateWithName(textLayerFont.fontName as CFStringRef, textLayerFont.pointSize, nil)
-          textLayer.fontSize = textLayerFont.pointSize
-          
-          if let nColor = self.numbersColor {
-            textLayer.foregroundColor = nColor.CGColor
-          }
-          
-          if let text = self.delegate?.progressBar?(self, textAtIndex: i) {
-            textLayer.string = text
-          } else {
-            textLayer.string = "\(i)"
-          }
-          
-          textLayer.sizeWidthToFit()
-          
-          textLayer.frame = CGRectMake(centerPoint.x - textLayer.bounds.width/2, centerPoint.y - textLayer.bounds.height/2, textLayer.bounds.width, textLayer.bounds.height)
-          
-          self.layer.addSublayer(textLayer)
-        }
+      if(self.displayNumbers) {
+        self.renderTextIndexes()
       }
     }
     
+    let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
+    
     if let currentProgressCenterPoint = progressCenterPoints.last {
       
-      let maskPath = self.maskPath(currentProgressCenterPoint)
+      let maskPath = self._maskPath(currentProgressCenterPoint)
       maskLayer.path = maskPath.CGPath
       
       CATransaction.begin()
@@ -267,11 +284,75 @@ import CoreGraphics
       maskLayer.addAnimation(progressAnimation, forKey: "progressAnimation")
       CATransaction.commit()
     }
-    previousIndex = currentIndex
+    self.previousIndex = self.currentIndex
   }
   
+  /**
+   Render the text indexes
+   */
+  private func renderTextIndexes() {
+    
+    for i in 0...(numberOfPoints - 1) {
+      let centerPoint = centerPoints[i]
+      
+      let textLayer = self._textLayer(atIndex: i)
+      
+      var textLayerFont = UIFont.boldSystemFontOfSize(self._progressRadius)
+      textLayer.contentsScale = UIScreen.mainScreen().scale
+      
+      if let nFont = self.numbersFont {
+        textLayerFont = nFont
+      }
+      textLayer.font = CTFontCreateWithName(textLayerFont.fontName as CFStringRef, textLayerFont.pointSize, nil)
+      textLayer.fontSize = textLayerFont.pointSize
+      
+      if let nColor = self.numbersColor {
+        textLayer.foregroundColor = nColor.CGColor
+      }
+      
+      if let text = self.delegate?.progressBar?(self, textAtIndex: i) {
+        textLayer.string = text
+      } else {
+        textLayer.string = "\(i)"
+      }
+      
+      textLayer.sizeWidthToFit()
+      
+      textLayer.frame = CGRectMake(centerPoint.x - textLayer.bounds.width/2, centerPoint.y - textLayer.bounds.height/2, textLayer.bounds.width, textLayer.bounds.height)
+    }
+  }
   
-  func shapePath(centerPoints: Array<CGPoint>, aRadius: CGFloat, aLineHeight: CGFloat) -> UIBezierPath? {
+  /**
+   Provide a text layer for the given index. If it's not in cache, it'll be instanciated.
+   
+   - parameter index: The index where the layer will be used
+   
+   - returns: The text layer
+   */
+  private func _textLayer(atIndex index: Int) -> CATextLayer {
+    
+    var textLayer: CATextLayer
+    if let _textLayer = self._textLayers[index] {
+      textLayer = _textLayer
+    } else {
+      textLayer = CATextLayer()
+      self._textLayers[index] = textLayer
+    }
+    self.layer.addSublayer(textLayer)
+    
+    return textLayer
+  }
+  
+  /**
+   Compte a progress path
+   
+   - parameter centerPoints: The center points corresponding to the indexes
+   - parameter aRadius:      The index radius
+   - parameter aLineHeight:  The line height between each index
+   
+   - returns: The computed path
+   */
+  private func _shapePath(centerPoints: Array<CGPoint>, aRadius: CGFloat, aLineHeight: CGFloat) -> UIBezierPath {
     
     let nbPoint = centerPoints.count
     
@@ -337,7 +418,6 @@ import CoreGraphics
       
       path.addArcWithCenter(CGPointMake(centerPoint.x, centerPoint.y), radius: aRadius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
       
-      
       if(i < nbPoint - 1) {
         xCursor += aRadius + distanceBetweenCircles
         path.addLineToPoint(CGPointMake(xCursor, centerPoint.y - aLineHeight / 2.0))
@@ -351,15 +431,17 @@ import CoreGraphics
     return path
   }
   
-  func progressMaskPath(currentProgressCenterPoint: CGPoint) -> UIBezierPath {
-    let maskPath = UIBezierPath(rect: CGRectMake(0.0, 0.0, currentProgressCenterPoint.x + _progressRadius, self.bounds.height))
-    return maskPath
-  }
-  
-  func maskPath(currentProgressCenterPoint: CGPoint) -> UIBezierPath {
+  /**
+   Compute the mask path
+   
+   - parameter currentProgressCenterPoint: The current progress index's center point
+   
+   - returns: The computed mask path
+   */
+  private func _maskPath(currentProgressCenterPoint: CGPoint) -> UIBezierPath {
     
-    let angle = _progressLineHeight / 2.0 / _progressRadius;
-    let xOffset = cos(angle) * _progressRadius
+    let angle = self._progressLineHeight / 2.0 / self._progressRadius;
+    let xOffset = cos(angle) * self._progressRadius
     
     let maskPath = UIBezierPath()
     
@@ -367,9 +449,9 @@ import CoreGraphics
     
     maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, 0.0))
     
-    maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, currentProgressCenterPoint.y - _progressLineHeight))
+    maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, currentProgressCenterPoint.y - self._progressLineHeight))
     
-    maskPath.addArcWithCenter(currentProgressCenterPoint, radius: _progressRadius, startAngle: -angle, endAngle: angle, clockwise: true)
+    maskPath.addArcWithCenter(currentProgressCenterPoint, radius: self._progressRadius, startAngle: -angle, endAngle: angle, clockwise: true)
     
     maskPath.addLineToPoint(CGPointMake(currentProgressCenterPoint.x + xOffset, self.bounds.height))
     
@@ -379,8 +461,12 @@ import CoreGraphics
     return maskPath
   }
   
-  
-  func gestureAction(gestureRecognizer:UIGestureRecognizer) {
+  /**
+   Respond to the user action
+   
+   - parameter gestureRecognizer: The gesture recognizer responsible for the action
+   */
+  func gestureAction(gestureRecognizer: UIGestureRecognizer) {
     if(gestureRecognizer.state == UIGestureRecognizerState.Ended ||
       gestureRecognizer.state == UIGestureRecognizerState.Changed ) {
       
@@ -390,20 +476,21 @@ import CoreGraphics
       
       var selectedIndex = 0
       
-      for (index, point) in centerPoints.enumerate() {
+      for (index, point) in self.centerPoints.enumerate() {
         let distance = touchPoint.distanceWith(point)
         if(distance < smallestDistance) {
           smallestDistance = distance
           selectedIndex = index
         }
       }
-      if(currentIndex != selectedIndex) {
+      
+      if(self.currentIndex != selectedIndex) {
         if let canSelect = self.delegate?.progressBar?(self, canSelectItemAtIndex: selectedIndex) {
           if (canSelect) {
-            currentIndex = selectedIndex
+            self.currentIndex = selectedIndex
           }
         } else {
-          currentIndex = selectedIndex
+          self.currentIndex = selectedIndex
         }
       }
     }
