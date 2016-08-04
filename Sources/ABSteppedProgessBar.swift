@@ -252,7 +252,7 @@ import CoreGraphics
       progressLayer.path = progressPath.CGPath
       progressLayer.fillColor = selectedBackgoundColor.CGColor
       
-      if(self.displayNumbers) {
+      if(self.displayStepText) {
         self.renderTextIndexes()
       }
     }
