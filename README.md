@@ -1,4 +1,4 @@
-ABSteppedProgressBar
+ABSteppedProgressBar [![Build Status](https://travis-ci.org/antoninbiret/ABSteppedProgressBar.svg?branch=master)](https://travis-ci.org/antoninbiret/ABSteppedProgressBar)
 =====
 
 ![ABSteppedProgressBar](https://raw.githubusercontent.com/antoninbiret/ABSteppedProgressBar/master/screenshot.gif)
@@ -34,7 +34,7 @@ Run:
 
 pod install
 
-Then, import the module : 
+Then, import the module :
 
 ```swift
 import ABSteppedProgressBar
