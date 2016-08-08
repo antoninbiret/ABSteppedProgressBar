@@ -1,0 +1,6 @@
+language: objective-c
+podfile: Exemple-ABSteppedProgressBar/Podfile
+osx_image: xcode7.3
+xcode_workspace: Exemple-ABSteppedProgressBar/Exemple.xcworkspace
+xcode_scheme: Exemple
+xcode_sdk: iphonesimulator9.3
