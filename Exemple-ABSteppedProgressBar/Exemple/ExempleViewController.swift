@@ -35,6 +35,7 @@ class ExempleViewController: UIViewController {
     
     progressBar.delegate = self
     
+    
     progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
   }
@@ -55,13 +56,27 @@ extension ExempleViewController: ABSteppedProgressBarDelegate {
   func progressBar(progressBar: ABSteppedProgressBar,
                    canSelectItemAtIndex index: Int) -> Bool {
     print("progressBar:canSelectItemAtIndex:\(index)")
-    return true
+    let offset = abs(progressBar.currentIndex - index)
+    return (offset <= 1)
   }
   
   func progressBar(progressBar: ABSteppedProgressBar,
                    textAtIndex index: Int) -> String {
+    let text: String
+    switch index {
+    case 0:
+      text = "A"
+    case 1:
+      text = "B"
+    case 2:
+      text = "C"
+    case 3:
+      text = "D"
+    default:
+      text = ""
+    }
     print("progressBar:textAtIndex:\(index)")
-    return "\(index)"
+    return text
   }
   
 }
