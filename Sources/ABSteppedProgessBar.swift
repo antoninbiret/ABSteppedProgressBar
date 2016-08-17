@@ -296,18 +296,19 @@ import CoreGraphics
       let centerPoint = centerPoints[i]
       
       let textLayer = self._textLayer(atIndex: i)
-      
-      var textLayerFont = UIFont.boldSystemFontOfSize(self._progressRadius)
       textLayer.contentsScale = UIScreen.mainScreen().scale
       
-      if let nFont = self.numbersFont {
-        textLayerFont = nFont
+      let textLayerFont: UIFont
+      if let stepTextFont = self.stepTextFont {
+        textLayerFont = stepTextFont
+      } else {
+        textLayerFont = UIFont.boldSystemFontOfSize(self._progressRadius)
       }
       textLayer.font = CTFontCreateWithName(textLayerFont.fontName as CFStringRef, textLayerFont.pointSize, nil)
       textLayer.fontSize = textLayerFont.pointSize
       
-      if let nColor = self.numbersColor {
-        textLayer.foregroundColor = nColor.CGColor
+      if let textStepColor = self.stepTextColor {
+        textLayer.foregroundColor = textStepColor.CGColor
       }
       
       if let text = self.delegate?.progressBar?(self, textAtIndex: i) {

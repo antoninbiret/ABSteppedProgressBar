@@ -35,6 +35,8 @@ class ExempleViewController: UIViewController {
     
     progressBar.delegate = self
     
+    progressBar.stepTextColor = UIColor.whiteColor()
+    progressBar.stepTextFont = UIFont.systemFontOfSize(20)
     
     progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
@@ -56,6 +58,7 @@ extension ExempleViewController: ABSteppedProgressBarDelegate {
   func progressBar(progressBar: ABSteppedProgressBar,
                    canSelectItemAtIndex index: Int) -> Bool {
     print("progressBar:canSelectItemAtIndex:\(index)")
+    //Only next (or previous) step can be selected
     let offset = abs(progressBar.currentIndex - index)
     return (offset <= 1)
   }
