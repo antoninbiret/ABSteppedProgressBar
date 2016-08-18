@@ -33,6 +33,7 @@ class ExempleViewController: UIViewController {
     progressBar.progressRadius = 15
     progressBar.progressLineHeight = 10
     
+    progressBar.currentIndex = 1
     progressBar.delegate = self
     
     progressBar.stepTextColor = UIColor.whiteColor()
