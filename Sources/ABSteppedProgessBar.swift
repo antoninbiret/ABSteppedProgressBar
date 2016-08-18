@@ -33,7 +33,7 @@ import CoreGraphics
   /// The number of displayed points in the component
   @IBInspectable public var numberOfPoints: Int = 3 {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -45,7 +45,7 @@ import CoreGraphics
       }
     }
     didSet {
-      animationRendering = true
+      self.animationRendering = true
       self.setNeedsDisplay()
     }
   }
@@ -53,7 +53,7 @@ import CoreGraphics
   /// The line height between points
   @IBInspectable public var lineHeight: CGFloat = 0.0 {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -69,7 +69,7 @@ import CoreGraphics
   /// The point's radius
   @IBInspectable public var radius: CGFloat = 0.0 {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -86,7 +86,7 @@ import CoreGraphics
   @IBInspectable public var progressRadius: CGFloat = 0.0 {
     didSet {
       maskLayer.cornerRadius = progressRadius
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -102,7 +102,7 @@ import CoreGraphics
   /// The progress line height between points
   @IBInspectable public var progressLineHeight: CGFloat = 0.0 {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -121,21 +121,21 @@ import CoreGraphics
   /// True if some text should be rendered in the step points. The text value is provided by the delegate
   @IBInspectable public var displayStepText: Bool = true {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
   /// The text font in the step points
   public var stepTextFont: UIFont? {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
   /// The text color in the step points
   public var stepTextColor: UIColor? {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -143,14 +143,14 @@ import CoreGraphics
   /// The component's background color
   @IBInspectable public var backgroundShapeColor: UIColor = UIColor(red: 166.0/255.0, green: 160.0/255.0, blue: 151.0/255.0, alpha: 0.8) {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
   /// The component selected background color
   @IBInspectable public var selectedBackgoundColor: UIColor = UIColor(red: 150.0/255.0, green: 24.0/255.0, blue: 33.0/255.0, alpha: 1.0) {
     didSet {
-      self.setNeedsDisplay()
+      self._setNeedsRedraw()
     }
   }
   
@@ -196,6 +196,14 @@ import CoreGraphics
   
   private var animationRendering = false
   
+  private var _needsRedraw = true {
+    didSet {
+      if self._needsRedraw {
+        self.setNeedsDisplay()
+      }
+    }
+  }
+  
   //MARK: - Life cycle
   
   public override init(frame: CGRect) {
@@ -238,23 +246,25 @@ import CoreGraphics
     var xCursor: CGFloat = largerRadius
     
     for _ in 0...(numberOfPoints - 1) {
-      centerPoints.append(CGPointMake(xCursor, bounds.height / 2))
+      self.centerPoints.append(CGPointMake(xCursor, bounds.height / 2))
       xCursor += 2 * largerRadius + distanceBetweenCircles
     }
     
-    if(!animationRendering) {
+    if(self._needsRedraw) {
       
       let bgPath = self._shapePath(self.centerPoints, aRadius: _radius, aLineHeight: _lineHeight)
-      backgroundLayer.path = bgPath.CGPath
-      backgroundLayer.fillColor = backgroundShapeColor.CGColor
+      self.backgroundLayer.path = bgPath.CGPath
+      self.backgroundLayer.fillColor = self.backgroundShapeColor.CGColor
       
       let progressPath = self._shapePath(self.centerPoints, aRadius: _progressRadius, aLineHeight: _progressLineHeight)
-      progressLayer.path = progressPath.CGPath
-      progressLayer.fillColor = selectedBackgoundColor.CGColor
+      self.progressLayer.path = progressPath.CGPath
+      self.progressLayer.fillColor = self.selectedBackgoundColor.CGColor
       
       if(self.displayStepText) {
         self.renderTextIndexes()
       }
+      
+      self._needsRedraw = true
     }
     
     let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
@@ -285,6 +295,13 @@ import CoreGraphics
       CATransaction.commit()
     }
     self.previousIndex = self.currentIndex
+  }
+  
+  /**
+   Force the component to redraw
+   */
+  private func _setNeedsRedraw() {
+    self._needsRedraw = true
   }
   
   /**
