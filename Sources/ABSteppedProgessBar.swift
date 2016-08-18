@@ -45,7 +45,7 @@ import CoreGraphics
       }
     }
     didSet {
-      self.animationRendering = true
+      self._animationRendering = true
       self.setNeedsDisplay()
     }
   }
@@ -59,10 +59,10 @@ import CoreGraphics
   
   private var _lineHeight: CGFloat {
     get {
-      if(lineHeight == 0.0 || lineHeight > self.bounds.height) {
+      if(self.lineHeight == 0.0 || self.lineHeight > self.bounds.height) {
         return self.bounds.height * 0.4
       }
-      return lineHeight
+      return self.lineHeight
     }
   }
   
@@ -75,27 +75,27 @@ import CoreGraphics
   
   private var _radius: CGFloat {
     get{
-      if(radius == 0.0 || radius > self.bounds.height / 2.0) {
+      if(self.radius == 0.0 || self.radius > self.bounds.height / 2.0) {
         return self.bounds.height / 2.0
       }
-      return radius
+      return self.radius
     }
   }
   
   /// The progress points's raduis
   @IBInspectable public var progressRadius: CGFloat = 0.0 {
     didSet {
-      maskLayer.cornerRadius = progressRadius
+      self._maskLayer.cornerRadius = self.progressRadius
       self._setNeedsRedraw()
     }
   }
   
   private var _progressRadius: CGFloat {
     get {
-      if(progressRadius == 0.0 || progressRadius > self.bounds.height / 2.0) {
+      if(self.progressRadius == 0.0 || self.progressRadius > self.bounds.height / 2.0) {
         return self.bounds.height / 2.0
       }
-      return progressRadius
+      return self.progressRadius
     }
   }
   
@@ -108,10 +108,10 @@ import CoreGraphics
   
   private var _progressLineHeight: CGFloat {
     get {
-      if(progressLineHeight == 0.0 || progressLineHeight > _lineHeight) {
-        return _lineHeight
+      if(self.progressLineHeight == 0.0 || self.progressLineHeight > self._lineHeight) {
+        return self._lineHeight
       }
-      return progressLineHeight
+      return self.progressLineHeight
     }
   }
   
@@ -182,19 +182,19 @@ import CoreGraphics
   
   //MARK: - Private properties
   
-  private var backgroundLayer = CAShapeLayer()
+  private var _backgroundLayer = CAShapeLayer()
   
-  private var progressLayer = CAShapeLayer()
+  private var _progressLayer = CAShapeLayer()
   
-  private var maskLayer = CAShapeLayer()
+  private var _maskLayer = CAShapeLayer()
   
-  private var centerPoints = [CGPoint]()
+  private var _centerPoints = [CGPoint]()
   
   private var _textLayers = [Int:CATextLayer]()
   
-  private var previousIndex: Int = 0
+  private var _previousIndex: Int = 0
   
-  private var animationRendering = false
+  private var _animationRendering = false
   
   private var _needsRedraw = true {
     didSet {
@@ -227,9 +227,9 @@ import CoreGraphics
     self.addGestureRecognizer(tapGestureRecognizer)
     self.addGestureRecognizer(swipeGestureRecognizer)
     
-    self.layer.addSublayer(self.backgroundLayer)
-    self.layer.addSublayer(self.progressLayer)
-    self.progressLayer.mask = self.maskLayer
+    self.layer.addSublayer(self._backgroundLayer)
+    self.layer.addSublayer(self._progressLayer)
+    self._progressLayer.mask = self._maskLayer
     
     self.contentMode = UIViewContentMode.Redraw
   }
@@ -237,64 +237,64 @@ import CoreGraphics
   override public func drawRect(rect: CGRect) {        
     super.drawRect(rect)
     
-    self.centerPoints.removeAll()
+    self._centerPoints.removeAll()
     
-    let largerRadius = fmax(_radius, _progressRadius)
+    let largerRadius = fmax(self._radius, self._progressRadius)
     
-    let distanceBetweenCircles = (self.bounds.width - (CGFloat(numberOfPoints) * 2 * largerRadius)) / CGFloat(numberOfPoints - 1)
+    let distanceBetweenCircles = (self.bounds.width - (CGFloat(self.numberOfPoints) * 2 * largerRadius)) / CGFloat(self.numberOfPoints - 1)
     
     var xCursor: CGFloat = largerRadius
     
-    for _ in 0...(numberOfPoints - 1) {
-      self.centerPoints.append(CGPointMake(xCursor, bounds.height / 2))
+    for _ in 0...(self.numberOfPoints - 1) {
+      self._centerPoints.append(CGPointMake(xCursor, bounds.height / 2))
       xCursor += 2 * largerRadius + distanceBetweenCircles
     }
     
     if(self._needsRedraw) {
       
-      let bgPath = self._shapePath(self.centerPoints, aRadius: _radius, aLineHeight: _lineHeight)
-      self.backgroundLayer.path = bgPath.CGPath
-      self.backgroundLayer.fillColor = self.backgroundShapeColor.CGColor
+      let bgPath = self._shapePath(self._centerPoints, aRadius: self._radius, aLineHeight: self._lineHeight)
+      self._backgroundLayer.path = bgPath.CGPath
+      self._backgroundLayer.fillColor = self.backgroundShapeColor.CGColor
       
-      let progressPath = self._shapePath(self.centerPoints, aRadius: _progressRadius, aLineHeight: _progressLineHeight)
-      self.progressLayer.path = progressPath.CGPath
-      self.progressLayer.fillColor = self.selectedBackgoundColor.CGColor
+      let progressPath = self._shapePath(self._centerPoints, aRadius: self._progressRadius, aLineHeight: self._progressLineHeight)
+      self._progressLayer.path = progressPath.CGPath
+      self._progressLayer.fillColor = self.selectedBackgoundColor.CGColor
       
       if(self.displayStepText) {
-        self.renderTextIndexes()
+        self._renderTextIndexes()
       }
       
       self._needsRedraw = true
     }
     
-    let progressCenterPoints = Array<CGPoint>(centerPoints[0..<(currentIndex+1)])
+    let progressCenterPoints = Array<CGPoint>(self._centerPoints[0..<(self.currentIndex+1)])
     
     if let currentProgressCenterPoint = progressCenterPoints.last {
       
       let maskPath = self._maskPath(currentProgressCenterPoint)
-      maskLayer.path = maskPath.CGPath
+      self._maskLayer.path = maskPath.CGPath
       
       CATransaction.begin()
       let progressAnimation = CABasicAnimation(keyPath: "path")
-      progressAnimation.duration = stepAnimationDuration * CFTimeInterval(abs(currentIndex - previousIndex))
+      progressAnimation.duration = self.stepAnimationDuration * CFTimeInterval(abs(self.currentIndex - self._previousIndex))
       progressAnimation.toValue = maskPath
       progressAnimation.removedOnCompletion = false
       progressAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
       
       
       CATransaction.setCompletionBlock { () -> Void in
-        if(self.animationRendering) {
+        if(self._animationRendering) {
           if let delegate = self.delegate {
             delegate.progressBar?(self, didSelectItemAtIndex: self.currentIndex)
           }
-          self.animationRendering = false
+          self._animationRendering = false
         }
       }
       
-      maskLayer.addAnimation(progressAnimation, forKey: "progressAnimation")
+      self._maskLayer.addAnimation(progressAnimation, forKey: "progressAnimation")
       CATransaction.commit()
     }
-    self.previousIndex = self.currentIndex
+    self._previousIndex = self.currentIndex
   }
   
   /**
@@ -307,10 +307,10 @@ import CoreGraphics
   /**
    Render the text indexes
    */
-  private func renderTextIndexes() {
+  private func _renderTextIndexes() {
     
-    for i in 0...(numberOfPoints - 1) {
-      let centerPoint = centerPoints[i]
+    for i in 0...(self.numberOfPoints - 1) {
+      let centerPoint = self._centerPoints[i]
       
       let textLayer = self._textLayer(atIndex: i)
       textLayer.contentsScale = UIScreen.mainScreen().scale
@@ -494,7 +494,7 @@ import CoreGraphics
       
       var selectedIndex = 0
       
-      for (index, point) in self.centerPoints.enumerate() {
+      for (index, point) in self._centerPoints.enumerate() {
         let distance = touchPoint.distanceWith(point)
         if(distance < smallestDistance) {
           smallestDistance = distance
