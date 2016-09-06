@@ -180,6 +180,10 @@ import CoreGraphics
     }
   }
   
+  public var centerPoints: [CGPoint] {
+    return self._centerPoints
+  }
+  
   //MARK: - Private properties
   
   private var _backgroundLayer = CAShapeLayer()

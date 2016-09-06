@@ -11,38 +11,60 @@ import ABSteppedProgressBar
 
 class ExempleViewController: UIViewController {
   
+  let progressBar = ABSteppedProgressBar()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let progressBar = ABSteppedProgressBar()
-    progressBar.translatesAutoresizingMaskIntoConstraints = false
-    self.view.addSubview(progressBar)
+    
+    self.progressBar.translatesAutoresizingMaskIntoConstraints = false
+    self.view.addSubview(self.progressBar)
     
     // iOS9+ auto layout code
-    let horizontalConstraint = progressBar.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor)
-    let verticalConstraint = progressBar.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor)
-    let widthConstraint = progressBar.widthAnchor.constraintEqualToAnchor(nil, constant: 170)
-    let heightConstraint = progressBar.heightAnchor.constraintEqualToAnchor(nil, constant: 40)
+    let horizontalConstraint = self.progressBar.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor)
+    let verticalConstraint = self.progressBar.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor)
+    let widthConstraint = self.progressBar.widthAnchor.constraintEqualToAnchor(nil, constant: 170)
+    let heightConstraint = self.progressBar.heightAnchor.constraintEqualToAnchor(nil, constant: 40)
     NSLayoutConstraint.activateConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
     
     
     // Customise the progress bar here
-    progressBar.numberOfPoints = 4
-    progressBar.lineHeight = 15
-    progressBar.radius = 20
-    progressBar.progressRadius = 15
-    progressBar.progressLineHeight = 10
+    self.progressBar.numberOfPoints = 4
+    self.progressBar.lineHeight = 15
+    self.progressBar.radius = 20
+    self.progressBar.progressRadius = 15
+    self.progressBar.progressLineHeight = 10
     
-    progressBar.currentIndex = 1
-    progressBar.delegate = self
+    self.progressBar.currentIndex = 1
+    self.progressBar.delegate = self
     
-    progressBar.stepTextColor = UIColor.whiteColor()
-    progressBar.stepTextFont = UIFont.systemFontOfSize(20)
+    self.progressBar.stepTextColor = UIColor.whiteColor()
+    self.progressBar.stepTextFont = UIFont.systemFontOfSize(20)
     
-    progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
-    progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
+    self.progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+    self.progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
+    
+    
+  }
+  
+  private func _addSubtitles() {
+    let subtitleVerticalPosition: CGFloat = self.progressBar.frame.origin.y + self.progressBar.bounds.height + 5
+    for (idx, point) in self.progressBar.centerPoints.enumerate() {
+      let realPoint = self.progressBar.convertPoint(point, toView: self.view)
+      let subtitle = UILabel(frame: CGRectMake(0, subtitleVerticalPosition, 40, 20))
+      subtitle.textAlignment = .Center
+      subtitle.center.x = realPoint.x
+      subtitle.text = self.progressBar(self.progressBar, textAtIndex: idx)
+      self.view.addSubview(subtitle)
+    }
+  }
+  
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    self._addSubtitles()
   }
 }
+
 
 extension ExempleViewController: ABSteppedProgressBarDelegate {
   
