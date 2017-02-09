@@ -1,6 +1,13 @@
+# references:
+# * http://www.objc.io/issue-6/travis-ci.html
+# * https://github.com/supermarin/xcpretty#usage
+
 language: objective-c
-podfile: Exemple-ABSteppedProgressBar/Podfile
 osx_image: xcode8
-xcode_workspace: Exemple-ABSteppedProgressBar/Exemple.xcworkspace
-xcode_scheme: Exemple
 xcode_sdk: iphonesimulator10.0
+
+before_install:
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
+script:
+- set -o pipefail && xcodebuild build -workspace Exemple-ABSteppedProgressBar/Exemple.xcworkspace -scheme Exemple -sdk iphonesimulator10.0 ONLY_ACTIVE_ARCH=NO | xcpretty
