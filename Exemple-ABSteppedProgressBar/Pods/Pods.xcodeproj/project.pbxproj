@@ -294,7 +294,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		05103C5DAF3011CD64C03BCEF9A95E57 /* Release */ = {
+		0747D58143BD5C86B4BEACC103C45300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F87DDCF6F2D2E42BD87A218197C77284 /* ABSteppedProgressBar.xcconfig */;
 			buildSettings = {
@@ -317,41 +317,12 @@
 				PRODUCT_NAME = ABSteppedProgressBar;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		26E03922AF54F7193E8913851BCFAC92 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F87DDCF6F2D2E42BD87A218197C77284 /* ABSteppedProgressBar.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ABSteppedProgressBar/ABSteppedProgressBar-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ABSteppedProgressBar/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ABSteppedProgressBar/ABSteppedProgressBar.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = ABSteppedProgressBar;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		46EE69AF77A148AF92860F097B5698B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -395,6 +366,40 @@
 			};
 			name = Debug;
 		};
+		4EE1C98355705CC944BEA59862CFC124 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40B2AE78484AD51C155D4C93B9620DC6 /* Pods-Exemple.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Exemple/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Exemple/Pods-Exemple.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Exemple;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		7A156876A8824526ED495550DF098FA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -433,7 +438,7 @@
 			};
 			name = Release;
 		};
-		D50D67269DC0658C6019AB805EE3B3CE /* Debug */ = {
+		823C924E8714E82505D8A639CF6E7B18 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2991FD9554A5081867A0901D56E0A1EC /* Pods-Exemple.debug.xcconfig */;
 			buildSettings = {
@@ -461,44 +466,43 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		DCBBF421D32BF13420EC281569C7A3FC /* Release */ = {
+		9BCC6158706C8E17D84EC874FE1349D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40B2AE78484AD51C155D4C93B9620DC6 /* Pods-Exemple.release.xcconfig */;
+			baseConfigurationReference = F87DDCF6F2D2E42BD87A218197C77284 /* ABSteppedProgressBar.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Exemple/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/ABSteppedProgressBar/ABSteppedProgressBar-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ABSteppedProgressBar/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Exemple/Pods-Exemple.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Exemple;
+				MODULEMAP_FILE = "Target Support Files/ABSteppedProgressBar/ABSteppedProgressBar.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = ABSteppedProgressBar;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -515,8 +519,8 @@
 		EF2684067F41EFCBF2EBE8B50A144183 /* Build configuration list for PBXNativeTarget "Pods-Exemple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D50D67269DC0658C6019AB805EE3B3CE /* Debug */,
-				DCBBF421D32BF13420EC281569C7A3FC /* Release */,
+				823C924E8714E82505D8A639CF6E7B18 /* Debug */,
+				4EE1C98355705CC944BEA59862CFC124 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -524,8 +528,8 @@
 		F8920BD8EB54BDEAB5BB995EC3274BF0 /* Build configuration list for PBXNativeTarget "ABSteppedProgressBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				26E03922AF54F7193E8913851BCFAC92 /* Debug */,
-				05103C5DAF3011CD64C03BCEF9A95E57 /* Release */,
+				9BCC6158706C8E17D84EC874FE1349D8 /* Debug */,
+				0747D58143BD5C86B4BEACC103C45300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

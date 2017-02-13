@@ -16,69 +16,70 @@ class ExempleViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self._configureProgressBar()
     
+    DispatchQueue.main.async { // Dispatch in order to render the subtitle in the next runloop
+      self._addSubtitles()
+    }
+    
+  }
+  
+  private func _configureProgressBar() {
     self.progressBar.translatesAutoresizingMaskIntoConstraints = false
     self.view.addSubview(self.progressBar)
-    
+  
     // iOS9+ auto layout code
-    let horizontalConstraint = self.progressBar.centerXAnchor.constraintEqualToAnchor(self.view.centerXAnchor)
-    let verticalConstraint = self.progressBar.centerYAnchor.constraintEqualToAnchor(self.view.centerYAnchor)
-    let widthConstraint = self.progressBar.widthAnchor.constraintEqualToAnchor(nil, constant: 170)
-    let heightConstraint = self.progressBar.heightAnchor.constraintEqualToAnchor(nil, constant: 40)
-    NSLayoutConstraint.activateConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
-    
-    
+    let horizontalConstraint = self.progressBar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+    let verticalConstraint = self.progressBar.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+    let widthConstraint = self.progressBar.widthAnchor.constraint(equalToConstant: 170)
+    let heightConstraint = self.progressBar.heightAnchor.constraint(equalToConstant: 40)
+    NSLayoutConstraint.activate([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+  
     // Customise the progress bar here
     self.progressBar.numberOfPoints = 4
     self.progressBar.lineHeight = 15
     self.progressBar.radius = 20
     self.progressBar.progressRadius = 15
     self.progressBar.progressLineHeight = 10
-    
+  
     self.progressBar.currentIndex = 1
     self.progressBar.delegate = self
-    
-    self.progressBar.stepTextColor = UIColor.whiteColor()
-    self.progressBar.stepTextFont = UIFont.systemFontOfSize(20)
-    
+  
+    self.progressBar.stepTextColor = UIColor.white
+    self.progressBar.stepTextFont = UIFont.systemFont(ofSize: 20)
+  
     self.progressBar.backgroundShapeColor = UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     self.progressBar.selectedBackgoundColor = UIColor(red: 64/255, green: 173/255, blue: 21/255, alpha: 1)
-    
-    
   }
   
   private func _addSubtitles() {
     let subtitleVerticalPosition: CGFloat = self.progressBar.frame.origin.y + self.progressBar.bounds.height + 5
-    for (idx, point) in self.progressBar.centerPoints.enumerate() {
-      let realPoint = self.progressBar.convertPoint(point, toView: self.view)
-      let subtitle = UILabel(frame: CGRectMake(0, subtitleVerticalPosition, 40, 20))
-      subtitle.textAlignment = .Center
+    for (idx, point) in self.progressBar.centerPoints.enumerated() {
+      let realPoint = self.progressBar.convert(point, to: self.view)
+      let subtitle = UILabel(frame: CGRect(x: 0, y: subtitleVerticalPosition, width: 40, height: 20))
+      subtitle.textAlignment = .center
       subtitle.center.x = realPoint.x
       subtitle.text = self.progressBar(self.progressBar, textAtIndex: idx)
       self.view.addSubview(subtitle)
     }
   }
-  
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    self._addSubtitles()
-  }
+
 }
 
 
 extension ExempleViewController: ABSteppedProgressBarDelegate {
   
-  func progressBar(progressBar: ABSteppedProgressBar,
+  func progressBar(_ progressBar: ABSteppedProgressBar,
                    willSelectItemAtIndex index: Int) {
     print("progressBar:willSelectItemAtIndex:\(index)")
   }
   
-  func progressBar(progressBar: ABSteppedProgressBar,
+  func progressBar(_ progressBar: ABSteppedProgressBar,
                    didSelectItemAtIndex index: Int) {
     print("progressBar:didSelectItemAtIndex:\(index)")
   }
   
-  func progressBar(progressBar: ABSteppedProgressBar,
+  func progressBar(_ progressBar: ABSteppedProgressBar,
                    canSelectItemAtIndex index: Int) -> Bool {
     print("progressBar:canSelectItemAtIndex:\(index)")
     //Only next (or previous) step can be selected
@@ -86,7 +87,7 @@ extension ExempleViewController: ABSteppedProgressBarDelegate {
     return (offset <= 1)
   }
   
-  func progressBar(progressBar: ABSteppedProgressBar,
+  func progressBar(_ progressBar: ABSteppedProgressBar,
                    textAtIndex index: Int) -> String {
     let text: String
     switch index {
