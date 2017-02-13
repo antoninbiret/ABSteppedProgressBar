@@ -6,23 +6,23 @@
 	<dict>
 		<key>ABSteppedProgressBar.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-Exemple.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>B0EAD042C17521457347A94AEADE93A4</key>
+		<key>B4B18A42885D8F02A84F5FC0470878C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D2E180613C6E640BD4792AC9ED5A3E15</key>
+		<key>DD01C8B0815C75C5FC0FA6774032FF4F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

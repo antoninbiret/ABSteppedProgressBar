@@ -1,16 +1,16 @@
 PODS:
-  - ABSteppedProgressBar (0.0.7)
+  - ABSteppedProgressBar (0.1.0)
 
 DEPENDENCIES:
   - ABSteppedProgressBar (from `../`)
 
 EXTERNAL SOURCES:
   ABSteppedProgressBar:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  ABSteppedProgressBar: a2ef071949a34a1d7c760c7bd5c39ddda5dbe455
+  ABSteppedProgressBar: e50df6d63818584e4b93ad48254ca2d06efe6523
 
 PODFILE CHECKSUM: e3f7c3da2057bf23dd71ba6d13a4cdf047d87233
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0
