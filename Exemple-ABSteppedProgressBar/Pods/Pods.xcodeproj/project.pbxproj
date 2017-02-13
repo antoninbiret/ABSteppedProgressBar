@@ -13,7 +13,7 @@
 		892D7D6C8FD0E6C83A481FC120E81A5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
 		8B824D7CBDC54DCB60F462ABD2B7D04F /* Pods-Exemple-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2841CB8FEA9C5FF084CD1A80C34ADE11 /* Pods-Exemple-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A69FE20C3162BD7B27DBFADB8CBA9697 /* ABSteppedProgessBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD92102BD7AA4A7C0D5EB695451D9B /* ABSteppedProgessBar.swift */; };
-		C0FC8BC7354CB39A304EA57718F4A41F /* ABTextLayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABTextLayerExtension.swift */; };
+		C0FC8BC7354CB39A304EA57718F4A41F /* ABLayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABLayerExtension.swift */; };
 		D4EB643782AB28BD02DE6D171715496E /* ABSteppedProgressBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 134D4478FC71E270958D718BCC89A610 /* ABSteppedProgressBar-dummy.m */; };
 		EE6D34F59A5D7029F4CC8390BB986195 /* ABPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F542790DB7082C3955F80D8953FEB16 /* ABPointExtension.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +36,7 @@
 		2991FD9554A5081867A0901D56E0A1EC /* Pods-Exemple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Exemple.debug.xcconfig"; sourceTree = "<group>"; };
 		40B2AE78484AD51C155D4C93B9620DC6 /* Pods-Exemple.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Exemple.release.xcconfig"; sourceTree = "<group>"; };
 		4CCD92102BD7AA4A7C0D5EB695451D9B /* ABSteppedProgessBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ABSteppedProgessBar.swift; sourceTree = "<group>"; };
-		4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABTextLayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ABTextLayerExtension.swift; sourceTree = "<group>"; };
+		4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABLayerExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ABLayerExtension.swift; sourceTree = "<group>"; };
 		59542A7EC23BC0DB867F074C8B6265AC /* Pods-Exemple-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Exemple-frameworks.sh"; sourceTree = "<group>"; };
 		6F542790DB7082C3955F80D8953FEB16 /* ABPointExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ABPointExtension.swift; sourceTree = "<group>"; };
 		709855943791A52CA518A2DD5F257D30 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 			children = (
 				6F542790DB7082C3955F80D8953FEB16 /* ABPointExtension.swift */,
 				4CCD92102BD7AA4A7C0D5EB695451D9B /* ABSteppedProgessBar.swift */,
-				4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABTextLayerExtension.swift */,
+				4D0A5C6FBE767D4D3157CF40D3E5B3A1 /* ABLayerExtension.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -278,7 +278,7 @@
 				EE6D34F59A5D7029F4CC8390BB986195 /* ABPointExtension.swift in Sources */,
 				A69FE20C3162BD7B27DBFADB8CBA9697 /* ABSteppedProgessBar.swift in Sources */,
 				D4EB643782AB28BD02DE6D171715496E /* ABSteppedProgressBar-dummy.m in Sources */,
-				C0FC8BC7354CB39A304EA57718F4A41F /* ABTextLayerExtension.swift in Sources */,
+				C0FC8BC7354CB39A304EA57718F4A41F /* ABLayerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
