@@ -24,6 +24,8 @@ import CoreGraphics
   @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
                             textAtIndex index: Int) -> String
   
+  @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
+	                        imageAtIndex index: Int) -> UIImage
 }
 
 @IBDesignable open class ABSteppedProgressBar: UIView {
@@ -125,20 +127,33 @@ import CoreGraphics
     }
   }
   
+  // True if some image should be rendered in the step points. The image value is provided by the delegate
+  @IBInspectable open var displayStepImages: Bool = true {
+    didSet {
+	  self._setNeedsRedraw()
+	}
+  }
+	
   /// The text font in the step points
-  open var stepTextFont: UIFont? {
-    didSet {
-      self._setNeedsRedraw()
-    }
+  @IBInspectable open var stepTextFont: UIFont? {
+	didSet {
+	  self._setNeedsRedraw()
+	}
   }
-  
+	
   /// The text color in the step points
-  open var stepTextColor: UIColor? {
-    didSet {
-      self._setNeedsRedraw()
-    }
+  @IBInspectable open var stepTextColor: UIColor? {
+	didSet {
+	  self._setNeedsRedraw()
+	}
   }
-  
+	
+  /// The active text color in the step points
+  @IBInspectable open var stepActiveTextColor: UIColor? {
+	didSet {
+	  self._setNeedsRedraw()
+	}
+  }
   
   /// The component's background color
   @IBInspectable open var backgroundShapeColor: UIColor = UIColor(red: 166.0/255.0, green: 160.0/255.0, blue: 151.0/255.0, alpha: 0.8) {
@@ -195,6 +210,7 @@ import CoreGraphics
   fileprivate var _centerPoints = [CGPoint]()
   
   fileprivate var _textLayers = [Int:CATextLayer]()
+  fileprivate var _imageLayers = [Int:CALayer]()
   
   fileprivate var _previousIndex: Int = 0
   
@@ -265,10 +281,14 @@ import CoreGraphics
       self._progressLayer.fillColor = self.selectedBackgoundColor.cgColor
       
       if(self.displayStepText) {
-        self._renderTextIndexes()
-      }
-      
-      self._needsRedraw = true
+		self._renderTextIndexes(self.displayStepImages)
+	  }
+		
+      if self.displayStepImages {
+	    self._renderImageIndexes()
+	  }
+			
+	  self._needsRedraw = true
     }
     
     let progressCenterPoints = Array<CGPoint>(self._centerPoints[0..<(self.currentIndex+1)])
@@ -311,37 +331,65 @@ import CoreGraphics
   /**
    Render the text indexes
    */
-  fileprivate func _renderTextIndexes() {
-    
-    for i in 0...(self.numberOfPoints - 1) {
-      let centerPoint = self._centerPoints[i]
-      
-      let textLayer = self._textLayer(atIndex: i)
-      textLayer.contentsScale = UIScreen.main.scale
-      
-      let textLayerFont: UIFont
-      if let stepTextFont = self.stepTextFont {
-        textLayerFont = stepTextFont
-      } else {
-        textLayerFont = UIFont.boldSystemFont(ofSize: self._progressRadius)
-      }
-      textLayer.font = CTFontCreateWithName(textLayerFont.fontName as CFString, textLayerFont.pointSize, nil)
-      textLayer.fontSize = textLayerFont.pointSize
-      
-      if let textStepColor = self.stepTextColor {
-        textLayer.foregroundColor = textStepColor.cgColor
-      }
-      
-      if let text = self.delegate?.progressBar?(self, textAtIndex: i) {
-        textLayer.string = text
-      } else {
-        textLayer.string = "\(i)"
-      }
-      
-      textLayer.sizeWidthToFit()
-      
-      textLayer.frame = CGRect(x: centerPoint.x - textLayer.bounds.width/2, y: centerPoint.y - textLayer.bounds.height/2, width: textLayer.bounds.width, height: textLayer.bounds.height)
-    }
+  fileprivate func _renderTextIndexes(_ bellowCircles: Bool) {
+		
+		for i in 0...(self.numberOfPoints - 1) {
+			let centerPoint = self._centerPoints[i]
+			
+			let textLayer = self._textLayer(atIndex: i)
+			textLayer.contentsScale = UIScreen.main.scale
+			
+			let textLayerFont: UIFont
+			if let stepTextFont = self.stepTextFont {
+				textLayerFont = stepTextFont
+			} else {
+				textLayerFont = UIFont.boldSystemFont(ofSize: self._progressRadius)
+			}
+			textLayer.font = CTFontCreateWithName(textLayerFont.fontName as CFString, textLayerFont.pointSize, nil)
+			textLayer.fontSize = textLayerFont.pointSize
+			
+			if currentIndex >= i, let textColor = self.stepTextColor {
+				textLayer.foregroundColor = textColor.cgColor
+			} else if let textColor = self.stepActiveTextColor {
+				textLayer.foregroundColor = textColor.cgColor
+			}
+			
+			if let text = self.delegate?.progressBar?(self, textAtIndex: i) {
+				textLayer.string = text
+			} else {
+				textLayer.string = "\(i)"
+			}
+			
+			textLayer.sizeWidthToFit()
+			
+	  		let bellowCirclesHeight = bellowCircles ? self.radius + textLayer.frame.height / 2 : 0
+			textLayer.frame = CGRect(x: centerPoint.x - textLayer.bounds.width/2,
+			                         y: centerPoint.y - textLayer.bounds.height/2 + bellowCirclesHeight,
+			                         width: textLayer.bounds.width, height: textLayer.bounds.height)
+		}
+	}
+	
+	/**
+	Render the image indexes
+	*/
+  fileprivate func _renderImageIndexes() {
+    for i in 0 ..< self.numberOfPoints {
+	  let centerPoint = self._centerPoints[i]
+			
+	  let imageLayer = self._imageLayer(atIndex: i)
+	  imageLayer.contentsScale = UIScreen.main.scale
+			
+	  if let image = self.delegate?.progressBar?(self, imageAtIndex: i) {
+	    imageLayer.contents = image.cgImage
+
+		imageLayer.sizeToFit(image, inRadius: self.radius)
+	  }
+			
+	  imageLayer.frame = CGRect(x: centerPoint.x - imageLayer.frame.width / 2,
+	                            y: centerPoint.y - imageLayer.frame.height / 2,
+	                            width: imageLayer.frame.width,
+	                            height: imageLayer.frame.height)
+	}
   }
   
   /**
@@ -363,6 +411,25 @@ import CoreGraphics
     self.layer.addSublayer(textLayer)
     
     return textLayer
+  }
+
+  /**
+   Provide a image layer for the given index. If it's not in cache, it'll be instanciated.
+	
+   - parameter index: The index where the layer will be used
+	
+   - returns: The image layer
+  */
+  fileprivate func _imageLayer(atIndex index: Int) -> CALayer {
+	var imageLayer: CALayer
+	if let _imageLayer = self._imageLayers[index] {
+	  imageLayer = _imageLayer
+	} else {
+	  imageLayer = CALayer()
+	  self._imageLayers[index] = imageLayer
+	}
+	  self.layer.addSublayer(imageLayer)
+	  return imageLayer
   }
   
   /**
@@ -408,33 +475,33 @@ import CoreGraphics
         
         xCursor = centerPoint.x
         
-        startAngle = CGFloat(M_PI)
+        startAngle = CGFloat(Double.pi)
         endAngle = -angle
         
       } else if(i < nbPoint - 1) {
         
-        startAngle = CGFloat(M_PI) + angle
+        startAngle = CGFloat(Double.pi) + angle
         endAngle = -angle
         
       } else if(i == (nbPoint - 1)){
         
-        startAngle = CGFloat(M_PI) + angle
+        startAngle = CGFloat(Double.pi) + angle
         endAngle = 0
         
       } else if(i == nbPoint) {
         
         startAngle = 0
-        endAngle = CGFloat(M_PI) - angle
+        endAngle = CGFloat(Double.pi) - angle
         
       } else if (i < (2 * nbPoint - 1)) {
         
         startAngle = angle
-        endAngle = CGFloat(M_PI) - angle
+        endAngle = CGFloat(Double.pi) - angle
         
       } else {
         
         startAngle = angle
-        endAngle = CGFloat(M_PI)
+        endAngle = CGFloat(Double.pi)
         
       }
       
@@ -517,5 +584,4 @@ import CoreGraphics
       }
     }
   }
-  
 }

@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NY4-hv-uHj">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NY4-hv-uHj">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -31,43 +35,39 @@
                         <viewControllerLayoutGuide type="bottom" id="fVs-oe-GOW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xJu-yW-KJK">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzB-0z-ENo">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzB-0z-ENo">
                                 <rect key="frame" x="262" y="265" width="77" height="70"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xh-7E-5uZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="77" height="30"/>
-                                        <state key="normal" title="Storyboard"/>
-                                        <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="FhL-d5-7UI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWK-u2-O6q">
-                                        <rect key="frame" x="0.0" y="40" width="77" height="30"/>
-                                        <state key="normal" title="Code"/>
-                                        <connections>
-                                            <segue destination="hIh-pG-Wmx" kind="show" id="T0J-rk-KsT"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="jWK-u2-O6q" secondAttribute="bottom" id="4uF-9h-hTs"/>
-                                    <constraint firstItem="jWK-u2-O6q" firstAttribute="leading" secondItem="gzB-0z-ENo" secondAttribute="leading" id="LnH-w0-0Fc"/>
-                                    <constraint firstItem="2xh-7E-5uZ" firstAttribute="leading" secondItem="gzB-0z-ENo" secondAttribute="leading" id="TWn-wc-M58"/>
-                                    <constraint firstAttribute="trailing" secondItem="2xh-7E-5uZ" secondAttribute="trailing" id="bSn-sP-3Iw"/>
-                                    <constraint firstItem="jWK-u2-O6q" firstAttribute="top" secondItem="2xh-7E-5uZ" secondAttribute="bottom" constant="10" id="dsm-MD-0qz"/>
-                                    <constraint firstAttribute="trailing" secondItem="jWK-u2-O6q" secondAttribute="trailing" id="lEb-II-ig2"/>
-                                    <constraint firstItem="2xh-7E-5uZ" firstAttribute="top" secondItem="gzB-0z-ENo" secondAttribute="top" id="y6X-AR-lZZ"/>
-                                </constraints>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xh-7E-5uZ">
+                                <rect key="frame" x="122" y="265" width="77" height="30"/>
+                                <state key="normal" title="Storyboard"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="FhL-d5-7UI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWK-u2-O6q">
+                                <rect key="frame" x="122" y="305" width="77" height="30"/>
+                                <state key="normal" title="Code"/>
+                                <connections>
+                                    <segue destination="hIh-pG-Wmx" kind="show" id="T0J-rk-KsT"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="jWK-u2-O6q" firstAttribute="leading" secondItem="xJu-yW-KJK" secondAttribute="leading" constant="122" id="4NL-nW-so7"/>
                             <constraint firstItem="gzB-0z-ENo" firstAttribute="centerX" secondItem="xJu-yW-KJK" secondAttribute="centerX" id="Jke-he-nNL"/>
                             <constraint firstItem="gzB-0z-ENo" firstAttribute="centerY" secondItem="xJu-yW-KJK" secondAttribute="centerY" id="Vik-t5-dbY"/>
+                            <constraint firstItem="jWK-u2-O6q" firstAttribute="top" secondItem="2xh-7E-5uZ" secondAttribute="bottom" constant="10" id="W0K-wQ-t6Q"/>
+                            <constraint firstItem="2xh-7E-5uZ" firstAttribute="leading" secondItem="xJu-yW-KJK" secondAttribute="leading" constant="122" id="fAJ-TE-MkI"/>
+                            <constraint firstAttribute="trailing" secondItem="2xh-7E-5uZ" secondAttribute="trailing" constant="121" id="gxi-bf-xUW"/>
+                            <constraint firstAttribute="trailing" secondItem="jWK-u2-O6q" secondAttribute="trailing" constant="121" id="ljh-Hk-Geb"/>
+                            <constraint firstAttribute="bottom" secondItem="jWK-u2-O6q" secondAttribute="bottom" constant="233" id="plx-Cz-YqH"/>
+                            <constraint firstItem="2xh-7E-5uZ" firstAttribute="top" secondItem="xJu-yW-KJK" secondAttribute="top" constant="265" id="yic-KE-u2J"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wpy-KH-2O1"/>
@@ -85,14 +85,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2yz-Dm-oXL">
-                                <rect key="frame" x="40" y="84" width="520" height="496"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2yz-Dm-oXL">
+                                <rect key="frame" x="40" y="84" width="248" height="464"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OS8-9y-r9C" customClass="ABSteppedProgressBar" customModule="ABSteppedProgressBar">
-                                        <rect key="frame" x="0.0" y="0.0" width="520" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="0m2-Mc-cBp"/>
@@ -111,25 +111,30 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgoundColor">
-                                                <color key="value" red="0.25098039215686274" green="0.67843137254901964" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.25098039215686274" green="0.67843137254901964" blue="0.082352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="displayNumbers" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="radius">
                                                 <real key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="backgroundShapeColor">
-                                                <color key="value" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="stepTextColor">
+                                                <color key="value" red="0.0" green="0.62376436540000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="stepActiveTextColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sb9-nq-8bl">
-                                        <rect key="frame" x="0.0" y="50" width="520" height="446"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="0.0" y="50" width="248" height="414"/>
                                     </view>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2yz-Dm-oXL" secondAttribute="bottom" constant="20" id="1Vv-YB-OKq"/>
                             <constraint firstItem="2yz-Dm-oXL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="9ab-vN-mXH"/>
@@ -151,9 +156,9 @@
                         <viewControllerLayoutGuide type="bottom" id="5FS-hV-dg7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4aJ-0O-0zy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPQ-yB-HDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
