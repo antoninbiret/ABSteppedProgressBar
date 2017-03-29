@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 s.name     = 'ABSteppedProgressBar'
 
-s.version  = '0.1.0'
+s.version  = '0.1.1'
 
 s.summary  = 'Simple and customisable stepped progress bar for iOS written in Swift'
 
