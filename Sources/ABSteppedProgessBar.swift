@@ -408,33 +408,33 @@ import CoreGraphics
         
         xCursor = centerPoint.x
         
-        startAngle = CGFloat(M_PI)
+        startAngle = .pi
         endAngle = -angle
         
       } else if(i < nbPoint - 1) {
         
-        startAngle = CGFloat(M_PI) + angle
+        startAngle = .pi + angle
         endAngle = -angle
         
       } else if(i == (nbPoint - 1)){
         
-        startAngle = CGFloat(M_PI) + angle
+        startAngle = .pi + angle
         endAngle = 0
         
       } else if(i == nbPoint) {
         
         startAngle = 0
-        endAngle = CGFloat(M_PI) - angle
+        endAngle = .pi - angle
         
       } else if (i < (2 * nbPoint - 1)) {
         
         startAngle = angle
-        endAngle = CGFloat(M_PI) - angle
+        endAngle = .pi - angle
         
       } else {
         
         startAngle = angle
-        endAngle = CGFloat(M_PI)
+        endAngle = .pi
         
       }
       
