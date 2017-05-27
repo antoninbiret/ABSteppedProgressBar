@@ -1,5 +1,9 @@
-ABSteppedProgressBar [![Build Status](https://travis-ci.org/antoninbiret/ABSteppedProgressBar.svg?branch=master)](https://travis-ci.org/antoninbiret/ABSteppedProgressBar)
-=====
+# ABSteppedProgressBar 
+
+[![Build Status](https://travis-ci.org/antoninbiret/ABSteppedProgressBar.svg?branch=master)](https://travis-ci.org/antoninbiret/ABSteppedProgressBar)
+[![Version](https://img.shields.io/cocoapods/v/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+[![License](https://img.shields.io/cocoapods/l/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+[![Platform](https://img.shields.io/cocoapods/p/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
 
 ![ABSteppedProgressBar](https://raw.githubusercontent.com/antoninbiret/ABSteppedProgressBar/master/screenshot.gif)
 
