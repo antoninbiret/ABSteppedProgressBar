@@ -240,7 +240,7 @@ import CoreGraphics
   
   override open func draw(_ rect: CGRect) {        
     super.draw(rect)
-    print("draw")
+
     self._centerPoints.removeAll()
     
     let largerRadius = fmax(self._radius, self._progressRadius)
