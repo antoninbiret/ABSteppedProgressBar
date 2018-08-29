@@ -26,7 +26,7 @@ import CoreGraphics
   
 }
 
-@IBDesignable open class ABSteppedProgressBar: UIView {
+@IBDesignable @objcMembers open class ABSteppedProgressBar: UIView {
   
   //MARK: - Public properties
   
