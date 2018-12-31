@@ -15,7 +15,7 @@ extension CATextLayer {
         
         guard let string = self.string as? String, let font = UIFont(name: fontName, size: self.fontSize) else { return }
         
-        let attributes = [NSAttributedStringKey.font: font]
+        let attributes = [NSAttributedString.Key.font: font]
         
         let attString = NSAttributedString(string: string, attributes: attributes)
         
