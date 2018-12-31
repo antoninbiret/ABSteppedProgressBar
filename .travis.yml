@@ -1,9 +1,9 @@
 language: objective-c
-osx_image: xcode9
-xcode_sdk: iphonesimulator11.0
+osx_image: xcode10.1
+xcode_sdk: iphonesimulator12.1
 
 before_install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 
 script:
-- set -o pipefail && xcodebuild build -workspace Exemple-ABSteppedProgressBar/Exemple.xcworkspace -scheme Exemple -sdk iphonesimulator11.0 ONLY_ACTIVE_ARCH=NO | xcpretty
+- set -o pipefail && xcodebuild build -workspace Exemple-ABSteppedProgressBar/Exemple.xcworkspace -scheme Exemple -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO | xcpretty
