@@ -283,7 +283,7 @@ import CoreGraphics
       progressAnimation.duration = self.stepAnimationDuration * CFTimeInterval(abs(self.currentIndex - self._previousIndex))
       progressAnimation.toValue = maskPath
       progressAnimation.isRemovedOnCompletion = false
-      progressAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+      progressAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
       
       
       CATransaction.setCompletionBlock { () -> Void in
