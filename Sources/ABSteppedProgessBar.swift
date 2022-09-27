@@ -159,7 +159,7 @@ import CoreGraphics
   
   //MARK: - Deprecated properties
   
-  @available(*, deprecated, message: "Use `displayTextIndexes` instead")
+  @available(*, deprecated, message: "Use `displayStepText` instead")
   @IBInspectable open var displayNumbers: Bool = true {
     didSet {
       self.displayStepText = self.displayNumbers
