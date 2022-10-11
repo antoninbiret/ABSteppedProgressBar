@@ -159,21 +159,21 @@ import CoreGraphics
   
   //MARK: - Deprecated properties
   
-  @available(*, deprecated: 0.0.5, message: "Use `displayTextIndexes` instead")
+  @available(*, deprecated, message: "Use `displayStepText` instead")
   @IBInspectable open var displayNumbers: Bool = true {
     didSet {
       self.displayStepText = self.displayNumbers
     }
   }
   
-  @available(*, deprecated: 0.0.5, message: "Use `stepTextFont` instead")
+  @available(*, deprecated, message: "Use `stepTextFont` instead")
   open var numbersFont: UIFont? {
     didSet {
       self.stepTextFont = self.numbersFont
     }
   }
   
-  @available(*, deprecated: 0.0.5, message: "Use `stepTextColor` instead")
+  @available(*, deprecated, message: "Use `stepTextColor` instead")
   open var numbersColor: UIColor? {
     didSet {
       self.stepTextColor = self.numbersColor
