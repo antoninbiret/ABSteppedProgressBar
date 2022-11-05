@@ -17,7 +17,7 @@ Run the Exemple project to see it in action !
 
 ## Requirements
 
-ABSteppedProgressBar requires at least iOS 8 or above.
+ABSteppedProgressBar requires at least iOS 9 or above.
 
 ## Installation
 
@@ -53,3 +53,13 @@ ABSteppedProgressBar is licensed under the MIT License.
 ### Antonin Biret
 * https://github.com/antoninbiret
 * https://twitter.com/antonin_brt
+
+## Maintenance
+
+### Pran Kishore
+* https://github.com/kishorepran
+* https://www.linkedin.com/in/pran-kishore/
+
+## Comming soon
+
+* Carthage and SPM Support

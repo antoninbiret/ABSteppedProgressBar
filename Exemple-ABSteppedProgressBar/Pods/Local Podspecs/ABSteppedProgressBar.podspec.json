@@ -1,9 +1,9 @@
 {
   "name": "ABSteppedProgressBar",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "summary": "Simple and customisable stepped progress bar for iOS written in Swift",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "license": {
     "type": "MIT",
@@ -12,7 +12,7 @@
   "source_files": "Sources/*.swift",
   "source": {
     "git": "https://github.com/antoninbiret/ABSteppedProgressBar.git",
-    "tag": "0.2.2"
+    "tag": "0.2.3"
   },
   "requires_arc": true,
   "frameworks": "Foundation",

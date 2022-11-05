@@ -166,7 +166,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Exemple/Pods-Exemple-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Exemple/Pods-Exemple-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ABSteppedProgressBar/ABSteppedProgressBar.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -175,7 +175,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Exemple/Pods-Exemple-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Exemple/Pods-Exemple-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F2EC0A24A8FD8E6723B3FEDD /* [CP] Check Pods Manifest.lock */ = {
