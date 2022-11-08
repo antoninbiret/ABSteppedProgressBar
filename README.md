@@ -1,9 +1,11 @@
 # ABSteppedProgressBar 
 
 [![Build Status](https://travis-ci.org/antoninbiret/ABSteppedProgressBar.svg?branch=master)](https://travis-ci.org/antoninbiret/ABSteppedProgressBar)
-[![Version](https://img.shields.io/cocoapods/v/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
-[![License](https://img.shields.io/cocoapods/l/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
-[![Platform](https://img.shields.io/cocoapods/p/ABSteppedProgressBar.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+[![Version](https://img.shields.io/badge/Version-0.2.3-orange.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+[![License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+[![Platform](https://img.shields.io/badge/platform-iOS_9.0-orange.svg?style=flat)](http://cocoapods.org/pods/ABSteppedProgressBar)
+![](https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat)
+![](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange.svg?style=flat)
 
 ![ABSteppedProgressBar](https://raw.githubusercontent.com/antoninbiret/ABSteppedProgressBar/master/screenshot.gif)
 
@@ -17,7 +19,7 @@ Run the Exemple project to see it in action !
 
 ## Requirements
 
-ABSteppedProgressBar requires at least iOS 8 or above.
+ABSteppedProgressBar requires at least iOS 9 or above.
 
 ## Installation
 
@@ -53,3 +55,13 @@ ABSteppedProgressBar is licensed under the MIT License.
 ### Antonin Biret
 * https://github.com/antoninbiret
 * https://twitter.com/antonin_brt
+
+## Maintenance
+
+### Pran Kishore
+* https://github.com/kishorepran
+* https://www.linkedin.com/in/pran-kishore/
+
+## Coming soon
+
+* Carthage Support

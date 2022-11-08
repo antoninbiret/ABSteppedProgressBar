@@ -2,13 +2,13 @@ Pod::Spec.new do |s|
 
 s.name     = 'ABSteppedProgressBar'
 
-s.version  = '0.2.2'
+s.version  = '0.2.3'
 
 s.summary  = 'Simple and customisable stepped progress bar for iOS written in Swift'
 
 s.platform     = :ios
 
-s.ios.deployment_target = '8.0'
+s.ios.deployment_target = '9.0'
 
 s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
