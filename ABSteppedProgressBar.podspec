@@ -26,4 +26,5 @@ s.social_media_url   = "https://twitter.com/Antonin_brt"
 
 s.homepage   = "https://github.com/antoninbiret/ABSteppedProgressBar"
 
+s.swift_version = '5.0'
 end
