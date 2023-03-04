@@ -1,0 +1,26 @@
+name: SwiftLint
+
+on: 
+   pull_request:
+        branches:
+          - master
+        paths:
+          - '.github/workflows/switflint.yml'
+          - '.swiftlint.yml'
+          - '**/*.swift'
+jobs:
+  SwiftLint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Github Action for SwiftLint
+      uses: norio-nomura/action-swiftlint@3.2.1
+
+  BuildFramework:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: List available Xcode versions
+      run: ls /Applications | grep Xcode
+    - name: Build XC Framework
+      run: ./generate-xcframework.sh
