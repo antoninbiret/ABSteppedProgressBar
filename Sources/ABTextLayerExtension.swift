@@ -10,6 +10,7 @@ import UIKit
 
 extension CATextLayer {
     
+    /// Set the progress bar width to fit
     func sizeWidthToFit() {
         let fontName = CTFontCopyPostScriptName(self.font as! CTFont) as String
         

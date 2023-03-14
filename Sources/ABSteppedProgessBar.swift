@@ -10,22 +10,41 @@ import UIKit
 import Foundation
 import CoreGraphics
 
+/// Provide index/text selected of ProgressBar
 @objc public protocol ABSteppedProgressBarDelegate {
-  
+    
+    /// Will Select an item
+    /// - Parameters:
+    ///   - progressBar: ABSteppedProgressBar
+    ///   - index: will select an item
   @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
                             willSelectItemAtIndex index: Int)
   
+    /// Did Select an item
+    /// - Parameters:
+    ///   - progressBar: ABSteppedProgressBar
+    ///   - index: index of selected item
   @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
                             didSelectItemAtIndex index: Int)
   
+    /// Can Select an item
+    /// - Parameters:
+    ///   - progressBar: ABSteppedProgressBar
+    ///   - index: index of selected item
   @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
                             canSelectItemAtIndex index: Int) -> Bool
   
+    /// Text at item
+    /// - Parameters:
+    ///   - progressBar: ABSteppedProgressBar
+    ///   - index: index of selected item
   @objc optional func progressBar(_ progressBar: ABSteppedProgressBar,
                             textAtIndex index: Int) -> String
   
 }
 
+
+/// Show the progress bar
 @IBDesignable @objcMembers open class ABSteppedProgressBar: UIView {
   
   //MARK: - Public properties
@@ -57,6 +76,7 @@ import CoreGraphics
     }
   }
   
+    
   fileprivate var _lineHeight: CGFloat {
     get {
       if(self.lineHeight == 0.0 || self.lineHeight > self.bounds.height) {
@@ -180,6 +200,7 @@ import CoreGraphics
     }
   }
   
+  /// Center Points
   open var centerPoints: [CGPoint] {
     return self._centerPoints
   }
@@ -237,7 +258,9 @@ import CoreGraphics
     
     self.contentMode = UIView.ContentMode.redraw
   }
-  
+    
+    /// Draw the Progress Bar
+    /// - Parameter rect: provide the rect
   override open func draw(_ rect: CGRect) {        
     super.draw(rect)
 
