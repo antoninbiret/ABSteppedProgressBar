@@ -174,7 +174,7 @@ import CoreGraphics
     }
   }
   
-  /// The component's delegate
+  /// The component's delegate ``ABSteppedProgressBarDelegate``
   open weak var delegate: ABSteppedProgressBarDelegate?
   
   //MARK: - Deprecated properties
