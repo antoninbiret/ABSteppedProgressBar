@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1D4882729C33DD800EFE7DC /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = B1D4882629C33DD800EFE7DC /* Documentation.docc */; };
 		OBJ_24 /* ABPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_8 /* ABPointExtension.swift */; };
 		OBJ_25 /* ABSteppedProgessBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ABSteppedProgessBar.swift */; };
 		OBJ_26 /* ABTextLayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ABTextLayerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B1D4882629C33DD800EFE7DC /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		OBJ_10 /* ABTextLayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTextLayerExtension.swift; sourceTree = "<group>"; };
 		OBJ_14 /* Exemple-ABSteppedProgressBar */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Exemple-ABSteppedProgressBar"; sourceTree = SOURCE_ROOT; };
 		OBJ_15 /* ABSteppedProgressBar.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ABSteppedProgressBar.podspec; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
+				B1D4882629C33DD800EFE7DC /* Documentation.docc */,
 				OBJ_7 /* Sources */,
 				OBJ_11 /* Tests */,
 				OBJ_12 /* Products */,
@@ -129,6 +132,7 @@
 				OBJ_24 /* ABPointExtension.swift in Sources */,
 				OBJ_25 /* ABSteppedProgessBar.swift in Sources */,
 				OBJ_26 /* ABTextLayerExtension.swift in Sources */,
+				B1D4882729C33DD800EFE7DC /* Documentation.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
